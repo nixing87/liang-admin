@@ -51,7 +51,7 @@ include _LA_INCLUDE_PATH . 'view/header.php';
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
-                <div class="layui-logo" lay-href="<?php echo _LA_API_URL_PREFIX; ?>domain/index.php">
+                <div class="layui-logo" lay-href="<?php echo _LA_MODULE_URL_PREFIX; ?>domain/index.php">
                     <span>后台管理面板</span>
                 </div>
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
@@ -62,7 +62,7 @@ include _LA_INCLUDE_PATH . 'view/header.php';
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="domain" class="layui-this">
-                                <a lay-href="<?php echo _LA_API_URL_PREFIX; ?>domain/index.php">域名列表</a>
+                                <a lay-href="<?php echo _LA_MODULE_URL_PREFIX; ?>domain/index.php">域名列表</a>
                             </dd>
                         </dl>
                     </li>
@@ -72,7 +72,7 @@ include _LA_INCLUDE_PATH . 'view/header.php';
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="<?php echo _LA_API_URL_PREFIX; ?>domain/index.php" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="<?php echo _LA_MODULE_URL_PREFIX; ?>domain/index.php" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
         <!-- 辅助元素，一般用于移动设备下遮罩 -->

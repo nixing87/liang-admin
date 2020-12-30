@@ -12,13 +12,20 @@ define('_LA_CONFIG_PATH', _LA_ROOT_PATH . 'config/');
 define('_LA_INCLUDE_PATH', _LA_ROOT_PATH . 'include/');
 define('_LA_VENDOR_PATH', _LA_ROOT_PATH . 'vendor/');
 
-define('_LA_API_URL_PREFIX', '/module/');
-define('_LA_ASSET_URL_PREFIX', '/asset/');
+$_la_appConfig = include _LA_CONFIG_PATH . 'app.php';
+
+if (empty($_la_appConfig['subdirectory'])) {
+    define('_LA_APP_URL_PREFIX', '/');
+} else {
+    define('_LA_APP_URL_PREFIX', $_la_appConfig['subdirectory']);
+}
+
+define('_LA_MODULE_URL_PREFIX', _LA_APP_URL_PREFIX . 'module/');
+define('_LA_ASSET_URL_PREFIX', _LA_APP_URL_PREFIX . 'asset/');
 define('_LA_LAYUI_ADMIN_URL_PREFIX', _LA_ASSET_URL_PREFIX . 'vendor/layuiadmin/');
 
 define('_LA_TIMESTAMP', time());
 
-$_la_appConfig = include _LA_CONFIG_PATH . 'app.php';
 $_la_page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
 $_la_pageSize = $_la_appConfig['pageSize'];
 if (!empty($_GET['limit'])) {

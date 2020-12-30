@@ -18,7 +18,7 @@
     }
     ?>
     <script>
-        const _LA_API_URL_PREFIX = '<?php echo _LA_API_URL_PREFIX; ?>';
+        const _LA_MODULE_URL_PREFIX = '<?php echo _LA_MODULE_URL_PREFIX; ?>';
         const _LA_LAYUI_ADMIN_URL_PREFIX = '<?php echo _LA_LAYUI_ADMIN_URL_PREFIX; ?>';
         var _la_appConfigPageSize = '<?php echo $_la_appConfig['pageSize']; ?>';
     </script>

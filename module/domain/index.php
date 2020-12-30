@@ -60,7 +60,7 @@ layui.use(['form', 'laydate', 'table'], function () {
 
     var tableInstance = table.render({
         elem: '#_la_table'
-        , url: _LA_API_URL_PREFIX + 'domain/api_list.php'
+        , url: _LA_MODULE_URL_PREFIX + 'domain/api_list.php'
         , height: 'full-130'
         , page: true
         , limit: _la_appConfigPageSize
@@ -99,7 +99,7 @@ layui.use(['form', 'laydate', 'table'], function () {
         } else if (event === 'delete') {
             layer.confirm('确定删除吗？', function (index) {
                 _la_admin.req({
-                    url: _LA_API_URL_PREFIX + 'domain/api_delete.php'
+                    url: _LA_MODULE_URL_PREFIX + 'domain/api_delete.php'
                     , method: 'POST'
                     , data: {id: data.id}
                     , done: function () {
@@ -115,7 +115,7 @@ layui.use(['form', 'laydate', 'table'], function () {
 
     form.on('submit(_la_submit)', function (formObj) {
         _la_admin.req({
-            url: _LA_API_URL_PREFIX + 'domain/api_save.php'
+            url: _LA_MODULE_URL_PREFIX + 'domain/api_save.php'
             , method: 'POST'
             , data: formObj.field
             , done: function () {

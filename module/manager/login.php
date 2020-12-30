@@ -37,7 +37,7 @@ layui.use(['form'], function () {
 
     form.on('submit(LAY-user-login-submit)', function (formObj) {
         _la_admin.req({
-            url: _LA_API_URL_PREFIX + 'manager/api_login.php'
+            url: _LA_MODULE_URL_PREFIX + 'manager/api_login.php'
             , method: 'POST'
             , data: formObj.field
             , done: function () {
