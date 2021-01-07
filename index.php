@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . '/include/common_admin.php';
-include _LA_INCLUDE_PATH . 'view/header.php';
+include _LA_INCLUDE_PATH . 'view/header_admin.php';
 ?>
 <div id="LAY_app" class="layadmin-tabspage-none">
     <div class="layui-layout layui-layout-admin">
@@ -80,5 +80,10 @@ include _LA_INCLUDE_PATH . 'view/header.php';
     </div>
 </div>
 <?php
-include _LA_INCLUDE_PATH . 'view/footer_content.php';
+include _LA_INCLUDE_PATH . 'view/footer_admin.php';
+?>
+<script>
+layui.use(['index'], function () {});
+</script>
+<?php
 include _LA_INCLUDE_PATH . 'view/footer.php';

@@ -6,6 +6,9 @@ use LiangQuick\Database\Mysql;
 
 $sql = " from la_domain where 1 = 1";
 $where = '';
+if (!empty($_GET['domain_search'])) {
+    $where .= " and domain like '%{$_GET['domain_search']}%'";
+}
 $countSql = "select count(*) count" . $sql . $where;
 $resultSet = Mysql::getInstance()->pdo->query($countSql);
 $count = $resultSet->fetchColumn();

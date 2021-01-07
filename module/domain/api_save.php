@@ -4,41 +4,57 @@ include _LA_VENDOR_PATH . 'liang-quick/Database/Mysql.php';
 
 use LiangQuick\Database\Mysql;
 
-if (empty($_POST['form_domain']) || empty($_POST['form_expire_in'])) {
-    jsonResult(4000211, '参数错误');
-}
-$domain = $_POST['form_domain'];
-$expire_in = strtotime($_POST['form_expire_in']);
-
-$action = empty($_POST['form_action']) ? 'add' : $_POST['form_action'];
-if (!in_array($action, ['add', 'update'])){
+if (empty($_POST['id'])) {
     $action = 'add';
+    if (empty($_POST['domain_add'])) {
+        jsonResult(4000211, '授权域名不能为空');
+    }
+    $domain = array_values(array_unique(array_filter(explode("\n", $_POST['domain_add']))));
+    if (empty($domain)) {
+        jsonResult(4000212, '授权域名不能为空');
+    }
+} else {
+    $action = 'update';
+    if (empty($_POST['domain_update'])) {
+        jsonResult(4000213, '授权域名不能为空');
+    }
+    $id = $_POST['id'];
+    $domain = $_POST['domain_update'];
 }
+
+if (empty($_POST['expire_in'])) {
+    jsonResult(4000214, '到期时间不能为空');
+}
+$expire_in = strtotime($_POST['expire_in']);
 
 if ($action == 'add') {
-    $executeSql = "insert into la_domain (domain, expire_in) values ('{$domain}', '{$expire_in}')";
-} elseif ($action == 'update') {
-    if (empty($_POST['form_id'])) {
-        jsonResult(4000212, '参数错误');
+    $domainSql = [];
+    foreach ($domain as $d) {
+        $sql = "select id from la_domain where domain = '{$d}' limit 0, 1";
+        $resultSet = Mysql::getInstance()->pdo->query($sql);
+        $has = $resultSet->fetch(PDO::FETCH_ASSOC);
+        if ($has) {
+            jsonResult(4000215, '此域名已存在：' . $d);
+        }
+        $domainSql[] = "('{$d}', '{$expire_in}')";
     }
-    $id = $_POST['form_id'];
+    $executeSql = "insert into la_domain (domain, expire_in) values " . implode(', ', $domainSql);
+} else {
     $sql = "select * from la_domain where id = '{$id}'";
     $resultSet = Mysql::getInstance()->pdo->query($sql);
-    $data = $resultSet->fetch(PDO::FETCH_ASSOC);
-    if (empty($data)) {
-        jsonResult(4000212, '该条数据不存在');
+    $row = $resultSet->fetch(PDO::FETCH_ASSOC);
+    if (empty($row)) {
+        jsonResult(4000216, '此域名不存在');
     }
-
-    $executeSql = "update la_domain set domain = '{$domain}', expire_in = '{$expire_in}' where id = '{$data['id']}'";
-}
-
-if (($action == 'update' && $data['domain'] != $domain) || $action == 'add') {
-    $sql = "select * from la_domain where domain = '{$domain}'";
-    $resultSet = Mysql::getInstance()->pdo->query($sql);
-    $has = $resultSet->fetch(PDO::FETCH_ASSOC);
-    if ($has) {
-        jsonResult(4000213, '该域名已存在');
+    if ($row['domain'] != $domain) {
+        $sql = "select * from la_domain where domain = '{$domain}'";
+        $resultSet = Mysql::getInstance()->pdo->query($sql);
+        $has = $resultSet->fetch(PDO::FETCH_ASSOC);
+        if ($has) {
+            jsonResult(4000214, '此域名已存在');
+        }
     }
+    $executeSql = "update la_domain set domain = '{$domain}', expire_in = '{$expire_in}' where id = '{$row['id']}'";
 }
 
 $dbResult = Mysql::getInstance()->pdo->exec($executeSql);

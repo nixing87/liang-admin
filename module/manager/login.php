@@ -4,7 +4,7 @@ $_la_title = '后台登录';
 $_la_cssFile = [
     _LA_LAYUI_ADMIN_URL_PREFIX . 'style/login.css',
 ];
-include _LA_INCLUDE_PATH . 'view/header.php';
+include _LA_INCLUDE_PATH . 'view/header_simple.php';
 ?>
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login">
     <div class="layadmin-user-login-main">
@@ -22,21 +22,22 @@ include _LA_INCLUDE_PATH . 'view/header.php';
                 <input value="" type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登录</button>
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="_la_submit">登录</button>
             </div>
         </div>
     </div>
 </div>
 <?php
-include _LA_INCLUDE_PATH . 'view/footer_content.php';
+include _LA_INCLUDE_PATH . 'view/footer_simple.php';
 ?>
 <script>
-layui.use(['form'], function () {
-    var form = layui.form
+layui.use(['index', 'form'], function () {
+    var admin = layui.admin
+        , form = layui.form
     ;
 
-    form.on('submit(LAY-user-login-submit)', function (formObj) {
-        _la_admin.req({
+    form.on('submit(_la_submit)', function (formObj) {
+        admin.req({
             url: _LA_MODULE_URL_PREFIX + 'manager/api_login.php'
             , method: 'POST'
             , data: formObj.field
