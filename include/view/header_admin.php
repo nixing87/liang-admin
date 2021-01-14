@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/header.php';
 ?>
-<body class="layui-layout-body layadmin-tabspage-none">
+<body class="<?php if (!empty($_la_bodyClass)) {echo $_la_bodyClass;} ?>">
 <?php
 if (!empty($_la_breadcrumb) && is_array($_la_breadcrumb)) {
 ?>

@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/include/common_admin.php';
+$_la_bodyClass = 'layui-layout-body layadmin-tabspage-none';
 include _LA_INCLUDE_PATH . 'view/header_admin.php';
 ?>
 <div id="LAY_app" class="layadmin-tabspage-none">
@@ -63,6 +64,20 @@ include _LA_INCLUDE_PATH . 'view/header_admin.php';
                         <dl class="layui-nav-child">
                             <dd data-name="domain" class="layui-this">
                                 <a lay-href="<?php echo _LA_MODULE_URL_PREFIX; ?>domain/index.php">域名列表</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="system_config" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="系统配置" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite>系统配置</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="system_config">
+                                <a lay-href="<?php echo _LA_MODULE_URL_PREFIX; ?>system_config/image/">图片配置</a>
+                            </dd>
+                            <dd data-name="system_config">
+                                <a lay-href="<?php echo _LA_MODULE_URL_PREFIX; ?>system_config/text/">文案配置</a>
                             </dd>
                         </dl>
                     </li>
