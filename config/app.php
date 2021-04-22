@@ -12,4 +12,8 @@ return [
     'pageSize' => 20,
     // 静态资源版本号
     'asset_version' => 1,
+
+    'domain' => [
+        'defaultTime' => 3600 * 24,
+    ],
 ];
